@@ -2,7 +2,7 @@ import {elements} from "./base";
 
 const renderRecipe = recipe => {
     const markup = `<li>
-                    <a class="results__link" href="${recipe.recipe_id}">
+                    <a class="results__link" href="#${recipe.recipe_id}">
                         <figure class="results__fig">
                             <img src="${recipe.image_url}" alt="${recipe.title}">
                         </figure>
@@ -75,6 +75,7 @@ export const getInput = () => elements.searchInput.value;
 export const clearInput = () => {
     elements.searchInput.value = "";
 };
+
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
     elements.pagePagination.innerHTML = '';

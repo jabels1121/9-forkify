@@ -2,9 +2,7 @@
 import Search from './models/Search';
 import {elements, renderSpinner, clearSpinner} from "./views/base";
 import * as searchView from './views/searchView';
-
-const search = new Search('pizza');
-console.log(search);
+import Recipe from './models/Recipe';
 
 /*
     - Global state of the app:
@@ -15,6 +13,7 @@ console.log(search);
  */
 const state = {};
 
+// SEARCH CONTROLLER
 const controlSearch = async () => {
     // 1. Get query from the view
     const query = searchView.getInput();
@@ -41,11 +40,27 @@ const controlSearch = async () => {
     }
 };
 
+// RECIPE CONTROLLER
+const controlShowSingleRecipe = async () => {
+    // 1. Add event listener on list of recipes using event delegation technique
+
+    // 1.1 Get unique recipe ID from the eventListener
+
+    // 2. Create Recipe object and add it to state
+
+    // 3. Prepare UI for the showing single recipe (showing spinner while data is fetching)
+
+    // 4. Get single recipe from public api
+
+    // 5. Remove spinner and showing single recipe
+};
+
 elements.searchFrom.addEventListener('submit', e => {
     e.preventDefault();
     controlSearch();
 });
 
+// Using Event delegation technique
 elements.pagePagination.addEventListener('click', e => {
     const btn = e.target.closest('.btn-inline');
     if (btn) {
@@ -55,5 +70,10 @@ elements.pagePagination.addEventListener('click', e => {
     }
 });
 
+elements.searchRes.addEventListener('click', e => {
+    console.log(e.target);
+});
 
-
+const r = new Recipe(35477);
+r.getRecipe();
+console.log(r);
