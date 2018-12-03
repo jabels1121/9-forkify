@@ -36,7 +36,7 @@ const controlSearch = async () => {
 
         // 5. Remove spinner from UI
         clearSpinner();
-        // 5. Render results on UI.
+        // 5.1 Render results on UI.
         searchView.renderResults(state.search.result);
     }
 };
@@ -46,6 +46,14 @@ elements.searchFrom.addEventListener('submit', e => {
     controlSearch();
 });
 
+elements.pagePagination.addEventListener('click', e => {
+    const btn = e.target.closest('.btn-inline');
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto, 10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+    }
+});
 
 
 
