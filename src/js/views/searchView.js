@@ -15,6 +15,14 @@ const renderRecipe = recipe => {
     elements.searchResList.insertAdjacentHTML('beforeend', markup);
 };
 
+export const highLightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active')
+    });
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+};
+
 // pasta with tomato and spinach
 const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
@@ -33,12 +41,13 @@ const limitRecipeTitle = (title, limit = 17) => {
 
 // type: 'prev' or 'next'
 const createButton = (page, type) => `
-                <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
-                    <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
-                    <svg class="search__icon">
-                        <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
-                    </svg>
-                </button>`;
+    <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>
+`;
 
 const renderButtons = (page, numOfResults, resPerPage) => {
     const pages = Math.ceil(numOfResults / resPerPage);
@@ -63,11 +72,24 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
     // render results of current page
     const start = (page - 1) * resPerPage;
     const end = page * resPerPage;
+    if (recipes) {
+        recipes.slice(start, end).forEach(renderRecipe);
 
-    recipes.slice(start, end).forEach(renderRecipe);
+        // render pagination buttons
+        renderButtons(page, recipes.length, resPerPage);
+    } else {
+        renderLimitError();
+        console.log('Превышен лимит api запросов в день');
+    }
 
-    // render pagination buttons
-    renderButtons(page, recipes.length, resPerPage);
+};
+
+const renderLimitError = () => {
+    const markup = `
+    <div class="error__limit">
+        <p>Sorry! Request limit exceeded</p>
+    </div>`;
+    elements.searchRes.insertAdjacentHTML('afterbegin', markup);
 };
 
 export const getInput = () => elements.searchInput.value;
