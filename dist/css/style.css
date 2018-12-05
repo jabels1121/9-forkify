@@ -239,11 +239,11 @@ body {
     text-decoration: none; }
   .results__link:hover,
   .likes__link:hover {
-    background-color: #F9F5F3;
+    background-color: #f9e1d4;
     transform: translateY(-2px); }
   .results__link--active,
   .likes__link--active {
-    background-color: #F9F5F3; }
+    background-color: #f9e1d4; }
   .results__fig,
   .likes__fig {
     flex: 0 0 5.5rem;
@@ -443,7 +443,7 @@ body {
   .shopping__list {
     list-style: none;
     max-height: 77rem;
-    overflow: scroll; }
+    overflow: scroll;}
   .shopping__item {
     display: flex;
     align-items: flex-start;
@@ -465,7 +465,7 @@ body {
       font-size: 1.2rem;
       text-align: center;
       border: none;
-      width: 3.7rem;
+      width: 4rem;
       border-radius: 3px; }
       .shopping__count input:focus {
         outline: none;
